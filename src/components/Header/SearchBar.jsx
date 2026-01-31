@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { FiSearch } from 'react-icons/fi';
 
 const SearchBar = () => {
   const [search, setSearch] = useState("");
@@ -47,6 +48,7 @@ const SearchBar = () => {
         }}
       >
         {/* Ícone de lupa adicionar aqui */}
+        <FiSearch className="text-lg" />
       </button>
     </div>
   );
