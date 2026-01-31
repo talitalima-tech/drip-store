@@ -11,22 +11,43 @@ const SearchBar = () => {
     }
   };
 
-  const handleKeyDown = (e) => {
-    if (e.key === "Enter") {
-      handleSearch();
-    }
-  };
-
   return (
-    <div>
+    <div
+      style={{
+        width: "559px",
+        height: "60px",
+        borderRadius: "8px",
+        backgroundColor: "#F5F5F5",
+        display: "flex",
+        alignItems: "center",
+        padding: "0 16px"
+      }}
+    >
       <input
         type="text"
         placeholder="Pesquisar produto..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-        onKeyDown={handleKeyDown}
+        onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+        style={{
+          flex: 1,
+          border: "none",
+          background: "transparent",
+          outline: "none",
+          fontSize: "16px"
+        }}
       />
-      <button onClick={handleSearch}></button>
+      <button
+        onClick={handleSearch}
+        style={{
+          background: "none",
+          border: "none",
+          cursor: "pointer",
+          fontSize: "18px"
+        }}
+      >
+        {/* Ícone de lupa adicionar aqui */}
+      </button>
     </div>
   );
 };
