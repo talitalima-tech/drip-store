@@ -1,9 +1,14 @@
-import React from 'react';
 
-export default function Logo() {
+import logo from '../../assets/logo-header.svg'; 
+const Logo = () => {
   return (
-    <div>
-      <p>Logo</p>
-    </div>
+    <img
+      src={logo}
+      alt="Digital Store Logo"
+      width={253}
+      height={44}
+    />
   );
-}
+};
+
+export default Logo;
