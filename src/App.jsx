@@ -1,5 +1,5 @@
-import 'primereact/resources/primereact.min.css'; 
-import 'primeicons/primeicons.css'; 
+import 'primereact/resources/primereact.min.css';
+import 'primeicons/primeicons.css';
 import 'primeflex/primeflex.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Footer from "./components/Footer/Footer";
@@ -26,5 +26,6 @@ const App = () => {
     </CartProvider>
   );
 }
- 
+
 export default App;
+

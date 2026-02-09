@@ -47,7 +47,6 @@ const SearchBar = () => {
           fontSize: "18px"
         }}
       >
-        {/* Ícone de lupa adicionar aqui */}
         <FiSearch className="text-lg" />
       </button>
     </div>
