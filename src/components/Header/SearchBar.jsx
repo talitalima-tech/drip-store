@@ -8,7 +8,7 @@ const SearchBar = () => {
 
   const handleSearch = () => {
     if (search.trim() !== "") {
-      navigate(`/products?filter=${search}`);
+      navigate(`/produtos?filter=${search}`);
     }
   };
 
