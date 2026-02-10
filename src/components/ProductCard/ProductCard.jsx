@@ -1,11 +1,13 @@
 import React from 'react';
+import { theme } from '../../styles/theme';
 
 export default function ProductCard({ image, name, price, priceDiscount }) {
   const containerStyle = {
     width: 292,
     display: 'flex',
     flexDirection: 'column',
-    gap: 12
+    gap: 12,
+    fontFamily: theme.typography.fontFamily
   };
 
   const imageWrapperStyle = {
@@ -26,7 +28,7 @@ export default function ProductCard({ image, name, price, priceDiscount }) {
   };
 
   const nameStyle = {
-    fontSize: 16,
+    fontSize: theme.typography.sizes.base,
     color: '#474747'
   };
 
@@ -37,12 +39,12 @@ export default function ProductCard({ image, name, price, priceDiscount }) {
   };
 
   const priceStyle = {
-    fontSize: 24,
+    fontSize: theme.typography.sizes['2xl'],
     color: '#474747'
   };
 
   const priceStrikedStyle = {
-    fontSize: 24,
+    fontSize: theme.typography.sizes['2xl'],
     color: '#8F8F8F',
     textDecoration: 'line-through'
   };
