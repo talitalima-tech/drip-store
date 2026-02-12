@@ -15,22 +15,43 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Check if Wiki is enabled
+        id: check_wiki
+        run: |
+          set -e
+          resp=$(curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/${{ github.repository }})
+          enabled=$(python - <<'PY'\nimport sys, json\nprint(json.load(sys.stdin).get('has_wiki', False))\nPY <<< "$resp")
+          if [ "$enabled" = "True" ] || [ "$enabled" = "true" ]; then
+            echo "wiki_enabled=true" >> $GITHUB_OUTPUT
+            echo "GitHub Wiki is enabled."
+          else
+            echo "wiki_enabled=false" >> $GITHUB_OUTPUT
+            echo "GitHub Wiki is disabled."
+          fi
+
       - name: Prepare Wiki directory
         run: |
           set -e
           mkdir -p wiki
-          WIKI_URL="https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.wiki.git"
-          if git clone "$WIKI_URL" wiki 2>/dev/null; then
-            echo "Wiki repository cloned."
-          else
-            echo "Wiki repository not found or wiki disabled. Initializing local repo."
-            cd wiki
-            git init
-            git checkout -b master
-            git remote add origin "$WIKI_URL"
-            cd ..
-          fi
           rsync -av --delete docs/wiki/ wiki/
+
+      - name: Clone Wiki repository
+        if: steps.check_wiki.outputs.wiki_enabled == 'true'
+        run: |
+          set -e
+          WIKI_URL="https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.wiki.git"
+          rm -rf wiki/.git || true
+          git clone "$WIKI_URL" wiki
+
+      - name: Initialize local repo when Wiki disabled
+        if: steps.check_wiki.outputs.wiki_enabled != 'true'
+        run: |
+          set -e
+          echo "Wiki desativada no repositório. Habilite em Settings → Wiki."
+          cd wiki
+          git init
+          git checkout -b master
+          cd ..
 
       - name: Commit and push to Wiki
         run: |
@@ -40,7 +61,11 @@ jobs:
           git add .
           if ! git diff --cached --quiet; then
             git commit -m "docs(wiki): sync from docs/wiki on ${{ github.sha }}"
-            git push -u origin master
+            if git config remote.origin.url >/dev/null 2>&1; then
+              git push -u origin master || { echo "Falha ao enviar para Wiki. Verifique se a Wiki está habilitada."; exit 0; }
+            else
+              echo "Wiki desativada; commit local realizado sem push."
+            fi
           else
             echo "No changes to sync."
           fi
