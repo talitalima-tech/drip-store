@@ -1,4 +1,5 @@
 import React from 'react';
+import { theme } from '../../styles/theme';
 import Layout from '../../layouts/Layout';
 import Gallery from '../../components/Gallery/Gallery';
 import Section from '../../components/Section/Section';
@@ -25,7 +26,7 @@ export default function HomePage() {
   return (
     <Layout>
       <div style={{ padding: '40px 104px' }}>
-        <div style={{ background: '#FFF3CD', color: '#8A6D3B', border: '1px solid #FFE8A1', borderRadius: 6, padding: '10px 12px', marginBottom: 16, fontSize: 14 }}>
+        <div style={{ background: '#FFF3CD', color: '#8A6D3B', border: '1px solid #FFE8A1', borderRadius: theme.borderRadius.md, padding: `${theme.spacing.sm} ${theme.spacing.md}`, marginBottom: theme.spacing.lg, fontSize: theme.typography.sizes.sm, lineHeight: 1.4 }}>
           Status: Gallery 1440x681 (2 imagens), Coleções 3 itens, Produtos 8 itens
         </div>
         <Gallery
