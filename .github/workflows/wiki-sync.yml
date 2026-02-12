@@ -32,15 +32,14 @@ jobs:
       - name: Prepare Wiki directory
         run: |
           set -e
+          rm -rf wiki
           mkdir -p wiki
-          rsync -av --delete docs/wiki/ wiki/
 
       - name: Clone Wiki repository
         if: steps.check_wiki.outputs.wiki_enabled == 'true'
         run: |
           set -e
           WIKI_URL="https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.wiki.git"
-          rm -rf wiki/.git || true
           git clone "$WIKI_URL" wiki
 
       - name: Initialize local repo when Wiki disabled
@@ -50,8 +49,13 @@ jobs:
           echo "Wiki desativada no repositório. Habilite em Settings → Wiki."
           cd wiki
           git init
-          git checkout -b master
+          git checkout -b main
           cd ..
+
+      - name: Sync docs into wiki directory
+        run: |
+          set -e
+          rsync -av --delete docs/wiki/ wiki/
 
       - name: Commit and push to Wiki
         run: |
@@ -62,7 +66,8 @@ jobs:
           if ! git diff --cached --quiet; then
             git commit -m "docs(wiki): sync from docs/wiki on ${{ github.sha }}"
             if git config remote.origin.url >/dev/null 2>&1; then
-              git push -u origin master || { echo "Falha ao enviar para Wiki. Verifique se a Wiki está habilitada."; exit 0; }
+              BRANCH="$(git rev-parse --abbrev-ref HEAD)"
+              git push -u origin "$BRANCH" || { echo "Falha ao enviar para Wiki. Verifique se a Wiki está habilitada."; exit 0; }
             else
               echo "Wiki desativada; commit local realizado sem push."
             fi
