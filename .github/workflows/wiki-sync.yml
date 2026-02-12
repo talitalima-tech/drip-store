@@ -1,0 +1,37 @@
+name: Sync Docs to GitHub Wiki
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'docs/wiki/**'
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Prepare Wiki directory
+        run: |
+          set -e
+          mkdir -p wiki
+          git clone "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.wiki.git" wiki || true
+          mkdir -p wiki
+          rsync -av --delete docs/wiki/ wiki/
+
+      - name: Commit and push to Wiki
+        run: |
+          cd wiki
+          git config user.name "${{ github.actor }}"
+          git config user.email "${{ github.actor }}@users.noreply.github.com"
+          git add .
+          if ! git diff --cached --quiet; then
+            git commit -m "docs(wiki): sync from docs/wiki on ${{ github.sha }}"
+            git push "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.wiki.git" HEAD:master
+          else
+            echo "No changes to sync."
+          fi
