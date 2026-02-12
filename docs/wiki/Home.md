@@ -22,6 +22,14 @@ Welcome to the Drip Store Wiki. This is the first page and source of truth for d
 - Tag: v0.7.0  
 - Details: [[Release v0.7.0]]
 
+## Getting Started
+- Prerequisites: Node.js (LTS recommended), npm.
+- Clone: `git clone https://github.com/talitalima-tech/drip-store.git`
+- Install: `npm install`
+- Development: `npm run dev` then open http://localhost:5173/
+- Build: `npm run build`
+- Preview build: `npm run preview`
+
 ## More Pages
 - [[Product-Pages]]
 
