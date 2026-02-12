@@ -19,8 +19,17 @@ jobs:
         run: |
           set -e
           mkdir -p wiki
-          git clone "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.wiki.git" wiki || true
-          mkdir -p wiki
+          WIKI_URL="https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.wiki.git"
+          if git clone "$WIKI_URL" wiki 2>/dev/null; then
+            echo "Wiki repository cloned."
+          else
+            echo "Wiki repository not found or wiki disabled. Initializing local repo."
+            cd wiki
+            git init
+            git checkout -b master
+            git remote add origin "$WIKI_URL"
+            cd ..
+          fi
           rsync -av --delete docs/wiki/ wiki/
 
       - name: Commit and push to Wiki
@@ -31,7 +40,7 @@ jobs:
           git add .
           if ! git diff --cached --quiet; then
             git commit -m "docs(wiki): sync from docs/wiki on ${{ github.sha }}"
-            git push "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.wiki.git" HEAD:master
+            git push -u origin master
           else
             echo "No changes to sync."
           fi
