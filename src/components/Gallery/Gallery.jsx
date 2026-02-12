@@ -102,7 +102,12 @@ const Gallery = ({ className, width, height, radius = '0px', showThumbs, images 
         <div style={trackStyle}>
           {images.map((img, i) => (
             <div key={i} style={slideStyle}>
-              <img src={img?.src} alt={`gallery-${i}`} style={imgStyle} />
+              <img
+                src={(img?.src || '').replace(/^public\//, '/')}
+                alt={`gallery-${i}`}
+                style={imgStyle}
+                onError={(e) => { e.currentTarget.src = '/vite.svg'; }}
+              />
             </div>
           ))}
         </div>
@@ -129,7 +134,12 @@ const Gallery = ({ className, width, height, radius = '0px', showThumbs, images 
       <div style={thumbsBarStyle}>
         {images.map((img, i) => (
           <div key={`thumb-${i}`} onClick={() => setIndex(i)} style={thumbStyle(i === index)}>
-            <img src={img?.src} alt={`thumb-${i}`} style={thumbImgStyle} />
+            <img
+              src={(img?.src || '').replace(/^public\//, '/')}
+              alt={`thumb-${i}`}
+              style={thumbImgStyle}
+              onError={(e) => { e.currentTarget.src = '/vite.svg'; }}
+            />
           </div>
         ))}
       </div>
