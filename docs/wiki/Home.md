@@ -36,3 +36,6 @@ Welcome to the Drip Store Wiki. This is the first page and source of truth for d
 ## Sync Notes
 - Ensure the “Wiki” feature is enabled in GitHub repository settings.
 - On each push to main affecting docs/wiki, content is mirrored to the GitHub Wiki.
+ 
+## Atualizações
+- Navegação pela Sidebar disponível para acesso rápido às páginas.
