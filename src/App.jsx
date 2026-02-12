@@ -2,23 +2,18 @@ import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 import 'primeflex/primeflex.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Footer from "./components/Footer/Footer";
-import Header from "./components/Header";
-import Section from './components/Section/Section';
+import HomePage from "./pages/HomePage/HomePage";
+import ProductListingPage from "./pages/ProductListingPage/ProductListingPage";
+import ProductViewPage from "./pages/ProductViewPage/ProductViewPage";
 
 const App = () => {
   return (
     <BrowserRouter>
-      <Header />
-
-      <Section title="Destaques">
-        <p>A</p>
-      </Section>
-
-      <Section title="Novidades">
-        <p>B</p>
-      </Section>
-      <Footer />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/produtos" element={<ProductListingPage />} />
+        <Route path="/product/:id" element={<ProductViewPage />} />
+      </Routes>
     </BrowserRouter>
   );
 }

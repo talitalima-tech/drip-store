@@ -57,7 +57,12 @@ export default function ProductCard({ image, name, price, priceDiscount }) {
   return (
     <div style={containerStyle}>
       <div style={imageWrapperStyle}>
-        <img src={image} alt={name} style={imageStyle} />
+        <img
+          src={(image || '').replace(/^public\//, '/')}
+          alt={name}
+          style={imageStyle}
+          onError={(e) => { e.currentTarget.src = '/vite.svg'; }}
+        />
       </div>
 
       <div style={nameStyle}>{name}</div>
