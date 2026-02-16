@@ -1,5 +1,5 @@
+import Footer from "../components/Footer/Footer";
 import Header from "../components/Header";
-import Footer from "../components/Footer";
 
 // Definindo o componente de layout
 const Layout = ({ children }) => {
