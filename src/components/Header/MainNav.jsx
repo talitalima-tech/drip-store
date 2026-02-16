@@ -1,23 +1,35 @@
+import React from 'react';
 import { NavLink } from "react-router-dom";
+import { theme } from "../../styles/theme";
 
 const MainNav = () => {
+  const { colors, typography } = theme;
+
+  // Função para estilizar os links dinamicamente (Ativo vs Inativo)
   const linkStyle = ({ isActive }) => ({
-      color: isActive ? "#C92071" : "#474747", // rosa se ativo, cinza se não
-      textDecoration: "none",
-      fontSize: "16px",
-      paddingBottom: "4px",
-      borderBottom: isActive ? "2px solid #C92071" : "2px solid transparent",
-      transition: "0.2s"
-    });
+    color: isActive ? colors.primary : colors.neutral.darkGray2,
+    textDecoration: "none",
+    fontSize: typography.sizes.base,
+    fontWeight: isActive ? typography.weights.bold : typography.weights.regular,
+    paddingBottom: "4px",
+    borderBottom: isActive ? `2px solid ${colors.primary}` : "2px solid transparent",
+    transition: "all 0.2s ease-in-out",
+    fontFamily: typography.fontFamily
+  });
+
+  // Estilo do container da lista
+  const listStyle = {
+    display: "flex",
+    listStyle: "none",
+    padding: 0,
+    margin: 0,
+    gap: "32px", // Espaço entre os links conforme o Figma
+    alignItems: "center"
+  };
 
   return (
-    <nav
-      style={{
-        width: "423px",  //largura total no Figma
-        height: "29px"
-      }}
-    >
-      <ul className="flex justify-content-between list-none p-0 m-0">
+    <nav style={{ height: "29px" }}>
+      <ul style={listStyle}>
         <li>
           <NavLink to="/" style={linkStyle}>
             Home
