@@ -7,6 +7,7 @@ import CategoryGrid from "../../components/CategoryGrid/CategoryGrid";
 import SpecialOffer from "../../components/SpecialOffer/SpecialOffer";
 import ProductListing from "../../components/ProductListing/ProductListing";
 import { theme } from "../../styles/theme";
+import Hero from "../../components/Hero/Hero";
 import { PRODUCTS, HOME_SLIDES, COLLECTIONS } from "../../data/db";
 
 const HomeWrapper = styled.main`
@@ -39,7 +40,7 @@ const HomePage = () => {
   return (
     <Layout>
       <HomeWrapper>
-        <Gallery images={HOME_SLIDES} width="1440px" height="681px" />
+        <Hero slides={HOME_SLIDES} />
 
         <Content>
           <Section title="Coleções em destaque">
