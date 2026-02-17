@@ -1,123 +1,28 @@
-import styled from "styled-components";
 import LogoFooter from "../../assets/logo-footer.svg";
 import facebookIcon from "../../assets/facebook.svg";
 import instagramIcon from "../../assets/instagram.svg";
 import twitterIcon from "../../assets/twitter.svg";
 import InfoColumn from "./InfoColumn";
 
-const FooterBackground = styled.footer`
-  background-color: #1f1f1f;
-  width: 100%;
-  font-family: 'Inter', sans-serif;
-`;
-
-const FooterContainer = styled.div`
-  max-width: 1440px;
-  margin: 0 auto;
-  padding: 72px 104px 40px;
-`;
-
-/* para organizar a LOGO + COLUNAS */
-const TopSection = styled.div`
-  display: flex;
-  align-items: flex-start;
-
-`;
-
-/* BLOCO LOGO */
-const BrandArea = styled.div`
-  width: 255px; /* distancia ate a coluna Informacao */
-  margin-right: 255px;
-`;
-
-const Logo = styled.img`
-  width: 253px;
-  height: 44px;
-
-   @media (max-width: 600px) {
-    margin: 0 auto 20px;
-  }
-`;
-
-const Description = styled.p`
-  width: 307px;
-  height: 78px;
-  margin: 24px 0;
-  font-size: 16px;
-  line-height: 26px;
-  color: #cccccc;
-`;
-
-const SocialIcons = styled.div`
-  display: flex;
-  gap: 36px;
-`;
-
-const FacebookIcon = styled.img`
-  width: 11px;
-  height: 21px;
-`;
-
-const InstagramIcon = styled.img`
-  width: 20px;
-  height: 20px;
-`;
-
-const TwitterIcon = styled.img`
-  width: 22px;
-  height: 18px;
-`;
-
-/* COLUNAS */
-const Columns = styled.div`
-  display: flex;
-  align-items: flex-start;
-`;
-
-const ColumnInfo = styled.div`
-  width: 135px;
-  margin-right: 102px;
-`;
-
-const ColumnCategories = styled.div`
-  width: 96px;
-  margin-right: 168px;
-`;
-
-const ColumnContact = styled.div`
-  width: 231px;
-`;
-
-const BottomBar = styled.div`
-  border-top: 1px solid #444;
-  margin-top: 60px;
-  padding-top: 20px;
-  text-align: center;
-  font-size: 14px;
-  color: #cccccc;
-`;
-
 const Footer = () => {
   return (
-    <FooterBackground>
-      <FooterContainer>
-        <TopSection>
-          <BrandArea>
-            <Logo src={LogoFooter} alt="Drip Store Logo" />
-
-            <Description>
+    <footer className="bg-[#1f1f1f] w-full font-inter">
+      <div className="max-w-[1440px] mx-auto px-[104px] pt-[72px] pb-[40px]">
+        <div className="flex items-start">
+          <div className="w-[255px] mr-[255px]">
+            <img className="w-[253px] h-[44px]" src={LogoFooter} alt="Drip Store Logo" />
+            <p className="w-[307px] h-[78px] my-[24px] text-[16px] leading-[26px] text-[#cccccc]">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </Description>
+            </p>
+            <div className="flex gap-[36px]">
+              <a href="#"><img className="w-[11px] h-[21px]" src={facebookIcon} alt="Facebook" /></a>
+              <a href="#"><img className="w-[20px] h-[20px]" src={instagramIcon} alt="Instagram" /></a>
+              <a href="#"><img className="w-[22px] h-[18px]" src={twitterIcon} alt="Twitter" /></a>
+            </div>
+          </div>
 
-            <SocialIcons>
-              <a href="#"><FacebookIcon src={facebookIcon} alt="Facebook" /></a>
-              <a href="#"><InstagramIcon src={instagramIcon} alt="Instagram" /></a>
-              <a href="#"><TwitterIcon src={twitterIcon} alt="Twitter" /></a>
-            </SocialIcons>
-          </BrandArea>
-
-          <Columns>
-            <ColumnInfo>
+          <div className="flex items-start">
+            <div className="w-[135px] mr-[102px]">
               <InfoColumn
                 title="Informação"
                 informations={[
@@ -129,9 +34,9 @@ const Footer = () => {
                   { text: "Meus Pedidos", link: "#" },
                 ]}
               />
-            </ColumnInfo>
+            </div>
 
-            <ColumnCategories>
+            <div className="w-[96px] mr-[168px]">
               <InfoColumn
                 title="Categorias"
                 informations={[
@@ -142,9 +47,9 @@ const Footer = () => {
                   { text: "Tênis", link: "#" },
                 ]}
               />
-            </ColumnCategories>
+            </div>
 
-            <ColumnContact>
+            <div className="w-[231px]">
               <InfoColumn
                 title="Contato"
                 informations={[
@@ -152,13 +57,15 @@ const Footer = () => {
                   { text: "(85) 3051-3411", link: "#" },
                 ]}
               />
-            </ColumnContact>
-          </Columns>
-        </TopSection>
+            </div>
+          </div>
+        </div>
 
-        <BottomBar>© 2026 Digital Store</BottomBar>
-      </FooterContainer>
-    </FooterBackground>
+        <div className="border-t border-[#444] mt-[60px] pt-[20px] text-center text-[14px] text-[#cccccc]">
+          © 2026 Digital Store
+        </div>
+      </div>
+    </footer>
   );
 };
 

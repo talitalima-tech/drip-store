@@ -1,50 +1,17 @@
-import styled from "styled-components";
-
-const Column = styled.div`
-  color: #cccccc;
-  font-size: 16px;
-`;
-
-const Title = styled.h3`
-  color: #ffffff; 
-  font-size: 18px;
-  font-weight: 600;
-  margin-bottom: 20px;
-`;
-
-const List = styled.ul`
-  list-style: none;
-  padding: 0;
-  margin: 0;
-`;
-
-const ListItem = styled.li`
-  margin-bottom: 14px;
-`;
-
-const Link = styled.a`
-  text-decoration: none;
-  color: #cccccc;
-  line-height: 26px;
-
-  &:hover {
-    color: #ffffff;
-  }
-`;
-
 const InfoColumn = ({ title, informations }) => {
   return (
-    <Column>
-      <Title>{title}</Title>
-
-      <List>
+    <div className="text-[#cccccc] text-[16px]">
+      <h3 className="text-white text-[18px] font-semibold mb-[20px]">{title}</h3>
+      <ul className="list-none p-0 m-0">
         {informations.map((item, index) => (
-          <ListItem key={index}>
-            <Link href={item.link}>{item.text}</Link>
-          </ListItem>
+          <li key={index} className="mb-[14px]">
+            <a href={item.link} className="no-underline text-[#cccccc] leading-[26px] hover:text-white">
+              {item.text}
+            </a>
+          </li>
         ))}
-      </List>
-    </Column>
+      </ul>
+    </div>
   );
 };
 

@@ -1,50 +1,21 @@
-import styled from "styled-components";
-
-// 1. Estilização do grupo (o título e o espaçamento)
-const Container = styled.div`
-  margin-bottom: 20px;
-  
-  h4 {
-    font-size: 14px;
-    color: #474747; /* dark-gray-2 */
-    margin-bottom: 10px;
-  }
-`;
-
-// 2. Estilização de cada linha (input + texto)
-const Option = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 8px;
-
-  input {
-    width: 22px;
-    height: 22px;
-    cursor: pointer;
-    /* No CSS puro usamos accent-color para mudar a cor do checkbox */
-    accent-color: #C92071; /* Cor primary (Rosa) */
-  }
-
-  label {
-    font-size: 14px;
-    color: #474747;
-    cursor: pointer;
-  }
-`;
-
 const FilterGroup = ({ title, inputType, options }) => {
   return (
-    <Container>
-      <h4>{title}</h4>
-      {/* Aqui fazemos um mapa para criar cada opção da lista */}
+    <div className="mb-[20px]">
+      <h4 className="text-[14px] text-[#474747] mb-[10px]">{title}</h4>
       {options.map((option, index) => (
-        <Option key={index}>
-          <input type={inputType} id={option.text} name={title} />
-          <label htmlFor={option.text}>{option.text}</label>
-        </Option>
+        <div key={index} className="flex items-center gap-[10px] mb-[8px]">
+          <input
+            className="w-[22px] h-[22px] cursor-pointer accent-primary"
+            type={inputType}
+            id={option.text}
+            name={title}
+          />
+          <label className="text-[14px] text-[#474747] cursor-pointer" htmlFor={option.text}>
+            {option.text}
+          </label>
+        </div>
       ))}
-    </Container>
+    </div>
   );
 };
 

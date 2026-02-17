@@ -1,4 +1,7 @@
-/* RESET BÁSICO */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 * {
   margin: 0;
   padding: 0;
@@ -6,5 +9,5 @@
 }
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Inter, sans-serif;
 }
