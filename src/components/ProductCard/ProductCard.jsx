@@ -1,89 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
-import { theme } from '../../styles/theme';
-
-// 1. Container Principal
-const CardContainer = styled.div`
-  width: 100%; /* Ocupa o espaço do grid */
-  max-width: 292px; /* Limite do Figma */
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  cursor: pointer;
-
-  @media (max-width: 600px) {
-    max-width: 100%; /* Garante que 2 caibam lado a lado */
-  }
-`;
-
-// 2. O Wrapper cinza da imagem (321px de altura)
-const ImageWrapper = styled.div`
-  width: 100%;
-  height: 321px;
-  background-color: #F5F5F5;
-  border-radius: 4px; /* Medida do Figma */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  position: relative;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
-
-  @media (max-width: 600px) {
-    height: 180px; /* Altura reduzida para telas pequenas */
-  }
-`;
-
-// 3. A Imagem com a rotação de 30 graus
-const ProductImage = styled.img`
-  width: 248px;  /* Medida do Figma */
-  height: 134px; /* Medida do Figma */
-  object-fit: contain;
-  transform: rotate(-30deg); 
-  transition: transform 0.3s ease;
-
-  ${CardContainer}:hover & {
-    transform: rotate(-30deg) scale(1.1); /* Zoom leve no hover */
-  }
-
-  @media (max-width: 600px) {
-    width: 80%;
-    height: auto;
-  }
-`;
-
-const Name = styled.div`
-  font-size: 16px;
-  color: #474747;
-  font-weight: 400;
-  /* Se houver tema: font-family: ${theme.typography?.fontFamily || 'inherit'}; */
-`;
-
-const PriceRow = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 12px;
-`;
-
-const Price = styled.div`
-  font-size: 24px;
-  font-weight: 700;
-  color: #1F1F1F;
-
-  @media (max-width: 600px) {
-    font-size: 18px;
-  }
-`;
-
-const PriceStriked = styled.div`
-  font-size: 24px;
-  color: #8F8F8F;
-  text-decoration: line-through;
-
-  @media (max-width: 600px) {
-    font-size: 18px;
-  }
-`;
 
 export default function ProductCard({ image, name, price, priceDiscount }) {
   const formatBRL = (value) =>
@@ -92,21 +7,27 @@ export default function ProductCard({ image, name, price, priceDiscount }) {
       : value;
 
   return (
-    <CardContainer>
-      <ImageWrapper>
-        <ProductImage src={image} alt={name} />
-      </ImageWrapper>
-
-      <Name>{name}</Name>
-
+    <div className="w-full max-w-[292px] flex flex-col gap-[12px] cursor-pointer group sm:max-w-full">
+      <div className="w-full h-[321px] bg-neutral-lightGray3 rounded-[4px] flex items-center justify-center overflow-hidden relative shadow-[0_4px_10px_rgba(0,0,0,0.03)] sm:h-[180px]">
+        <img
+          src={image}
+          alt={name}
+          className="w-[248px] h-[134px] object-contain rotate-[-30deg] transition-transform duration-300 group-hover:scale-110 sm:w-[80%] sm:h-auto"
+        />
+      </div>
+      <div className="text-[16px] text-neutral-darkGray2 font-normal">{name}</div>
       {!priceDiscount ? (
-        <Price>{formatBRL(price)}</Price>
+        <div className="text-[24px] font-bold text-neutral-darkGray sm:text-[18px]">{formatBRL(price)}</div>
       ) : (
-        <PriceRow>
-          <Price>{formatBRL(priceDiscount)}</Price>
-          <PriceStriked>{formatBRL(price)}</PriceStriked>
-        </PriceRow>
+        <div className="flex items-center gap-[12px]">
+          <div className="text-[24px] font-bold text-neutral-darkGray sm:text-[18px]">
+            {formatBRL(priceDiscount)}
+          </div>
+          <div className="text-[24px] text-neutral-lightGray line-through sm:text-[18px]">
+            {formatBRL(price)}
+          </div>
+        </div>
       )}
-    </CardContainer>
+    </div>
   );
 }

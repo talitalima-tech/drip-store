@@ -1,55 +1,28 @@
-import styled from "styled-components";
-
-const SectionWrapper = styled.section`
-  margin: 48px 0;
-  padding: 0 16px;
-`;
-
-const SectionHeader = styled.div`
-  display: flex;
-  align-items: center;
-  margin-bottom: 24px;
-  justify-content: ${(props) =>
-    props.align === "center" ? "center" : "space-between"};
-`;
-
-const Title = styled.h2`
-  font-size: 24px;
-  color: #474747; 
-  font-weight: 600;
-  margin: 0;
-  text-align: ${(props) => (props.align === "center" ? "center" : "left")};
-  width: ${(props) => (props.align === "center" ? "100%" : "auto")};
-`;
-
-const SectionLink = styled.a`
-  font-size: 18px;
-  color: #C92071; 
-  text-decoration: none;
-  font-weight: 500;
-
-  &:hover {
-    text-decoration: underline;
-  }
-`;
-
-const Content = styled.div`
-  width: 100%;
-`;
-
 const Section = ({ title, titleAlign = "left", link, children }) => {
+  const headerClasses =
+    titleAlign === "center"
+      ? "flex items-center mb-[24px] justify-center"
+      : "flex items-center mb-[24px] justify-between";
+  const titleClasses =
+    titleAlign === "center"
+      ? "text-[24px] text-[#474747] font-semibold m-0 text-center w-full"
+      : "text-[24px] text-[#474747] font-semibold m-0 text-left";
+
   return (
-    <SectionWrapper>
-      <SectionHeader align={titleAlign}>
-        <Title align={titleAlign}>{title}</Title>
-
+    <section className="my-[48px] px-[16px]">
+      <div className={headerClasses}>
+        {title && <h2 className={titleClasses}>{title}</h2>}
         {link && titleAlign !== "center" && (
-          <SectionLink href={link.href}>{link.text}</SectionLink>
+          <a
+            href={link.href}
+            className="text-[18px] text-primary no-underline font-medium hover:underline"
+          >
+            {link.text}
+          </a>
         )}
-      </SectionHeader>
-
-      <Content>{children}</Content>
-    </SectionWrapper>
+      </div>
+      <div className="w-full">{children}</div>
+    </section>
   );
 };
 
