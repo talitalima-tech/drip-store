@@ -1,12 +1,16 @@
 import styled from "styled-components";
 import { theme } from "../../styles/theme";
 import { CATEGORIES } from "../../data/db";
+import { IoShirtOutline } from "react-icons/io5";
+import { PiBaseballCapLight, PiHeadphonesLight, PiPantsLight } from "react-icons/pi";
+import { GiConverseShoe } from "react-icons/gi";
 
 const Grid = styled.div`
   display: flex;
   justify-content: center;
   gap: 48px;
   margin: 40px 0;
+  flex-wrap: wrap; /* Garante que quebre linha em telas menores */
 `;
 
 const Item = styled.div`
@@ -24,22 +28,50 @@ const Circle = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: ${theme.shadows.md};
+  box-shadow: ${theme.shadows?.md || '0px 4px 10px rgba(0,0,0,0.1)'};
   cursor: pointer;
   transition: 0.2s;
+  
+  /* Cor padrão do ícone */
+  color: ${theme.colors.neutral.darkGray2 || '#474747'};
+
   &:hover { 
-    border: 2px solid ${theme.colors.primary};
+    color: ${theme.colors.primary};
     transform: translateY(-5px);
   }
-  img { width: 64px; height: auto; }
+
+  svg { 
+    width: 64px; 
+    height: 64px; 
+  }
 `;
+
+// 2. Função auxiliar para escolher o ícone baseado no texto
+const getIcon = (label) => {
+  switch (label.toLowerCase()) {
+    case 'camisetas': return <IoShirtOutline />;
+    case 'calças': return <PiPantsLight />;
+    case 'bonés': return <PiBaseballCapLight />;
+    case 'headphones': return <PiHeadphonesLight />;
+    case 'tênis': return <GiConverseShoe />;
+    default: return <IoShirtOutline />;
+  }
+};
 
 const CategoryGrid = () => (
   <Grid>
     {CATEGORIES.map((cat, idx) => (
       <Item key={idx}>
-        <Circle><img src={cat.icon} alt={cat.label} /></Circle>
-        <span style={{ fontWeight: '700', fontSize: '14px' }}>{cat.label}</span>
+        <Circle>
+          {getIcon(cat.label)}
+        </Circle>
+        <span style={{ 
+          fontWeight: '700', 
+          fontSize: '14px', 
+          color: '#474747' 
+        }}>
+          {cat.label}
+        </span>
       </Item>
     ))}
   </Grid>
