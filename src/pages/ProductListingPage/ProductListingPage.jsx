@@ -99,7 +99,7 @@ const ProductListingPage = () => {
         {/* Ordenação e Produtos */}
         <Content>
           <TopContent>
-            <h4 style={{color: '#474747'}}>Resultados para "Ténis" - {PRODUCTS.slice(0, 15).length} produtos</h4>
+            <h4 style={{color: '#474747'}}>Resultados para "Tênis" - {PRODUCTS.slice(0, 15).length} produtos</h4>
             
             <OrderContainer>
               <label>Ordenar por:</label>
